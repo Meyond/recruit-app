@@ -20,11 +20,6 @@ class App extends Component {
     );
   }
 }
-//装饰器
-// const mapStatetoProps = (state) => {
-//   return {num: state}
-// }
-// const actionCreators = {addGun, removeGun}
-// App = connect(mapStatetoProps, actionCreators)(App)
+
 
 export default App;
