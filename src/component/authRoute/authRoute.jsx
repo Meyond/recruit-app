@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { Toast } from 'antd-mobile';
+import { loadData } from '../../redux/user.redux';
+import { connect } from "react-redux";
 
 @withRouter
+@connect( null, {loadData} )
 export default class AuthRoute extends Component {
   /**
    * 获取用户信息
@@ -10,24 +14,33 @@ export default class AuthRoute extends Component {
    */
   componentDidMount() {
     //打印props信息
-    console.log(this.props);
+    // console.log(this.props);
 
     const publicList = ["/login", "/register"];
     const pathName = this.props.location.pathname;
+
     if (publicList.indexOf(pathName) > -1) {
-      return null;
+      // return null;
     }
 
-    //获取用户信息
     axios.get("/user/info").then(res => {
       if (res.status === 200) {
         if (res.data.code === 0) {
-          console.log(this.this.props.history);
+          this.props.loadData(res.data.data)
+          // console.log(this.props.history);
         } else {
           this.props.history.push("/login");
         }
+      } else {
+        Toast.fail("请求错误！");
       }
     });
+
+    //处理默认路由
+    if(pathName == '/') {
+      this.props.history.push("/login");
+    }
+
   }
 
   render() {

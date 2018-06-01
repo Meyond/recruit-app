@@ -34,6 +34,7 @@ export default class Register extends Component {
 
   handleRegister() {
     // console.log(this.state);
+    console.log('触发register');
     this.props.register(this.state);
   }
 

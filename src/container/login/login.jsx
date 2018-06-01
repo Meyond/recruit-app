@@ -29,6 +29,8 @@ export default class Login extends Component {
   }
 
   handleLogin() {
+    console.log('触发登录');
+
     this.props.login(this.state);
   }
 
