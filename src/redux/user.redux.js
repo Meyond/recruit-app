@@ -39,12 +39,14 @@ export function user(state = initState, action) {
   }
 }
 
-function authSuccess(data) {
+function authSuccess(obj) {
+  const { pwd, ...data } = obj;
   return { type: AUTH_SUCCESS, payload: data };
 }
 
 function errorMsg(msg) {
-  return { msg, type: ERROR_MSG };
+  // Toast.fail(msg);
+  return { type: ERROR_MSG, msg };
 }
 
 export function loadData(userinfo) {
@@ -66,7 +68,6 @@ export function register({ user, pwd, repeatpwd, type }) {
         dispatch(AUTH_SUCCESS({ user, pwd, type }));
       } else {
         dispatch(errorMsg(res.data.msg));
-        // Toast.fail(res.data.msg, 1);
       }
     });
   };
@@ -84,7 +85,6 @@ export function login({ user, pwd }) {
         if (res.status === 200 && res.data.code === 0) {
           dispatch(authSuccess(res.data.data));
         } else {
-          Toast.fail(res.data.msg);
           dispatch(errorMsg(res.data.msg));
         }
       })

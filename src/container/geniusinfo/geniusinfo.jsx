@@ -14,9 +14,7 @@ import { update } from "../../redux/user.redux";
 
 @connect(state => state.user, { update })
 export default class GeniusInfo extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   onChange(key, val) {
     this.setState({ [key]: val });
   }

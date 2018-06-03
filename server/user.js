@@ -10,9 +10,23 @@ Router.get("/list", function(req, res) {
   // User.remove({}, function(err, doc) {
   //   console.log('清除所有用户！')
   // })
-  User.find({}, function(err, doc) {
-    return res.json(doc);
-  });
+  const { type } = req.query;
+
+  if (type) {
+    User.find({ type }, function(err, doc) {
+      if (err) {
+        return res.json({ code: 1, msg: "后端出错了" });
+      }
+      return res.json({ code: 0, data: doc, msg: "success" });
+    });
+  } else {
+    User.find({}, function(err, doc) {
+      if (err) {
+        return res.json({ code: 1, msg: "后端出错了" });
+      }
+      return res.json({ code: 0, data: doc, msg: "success" });
+    });
+  }
 });
 
 Router.get("/info", function(req, res) {
@@ -69,19 +83,23 @@ Router.post("/register", function(req, res) {
   });
 });
 
-Router.post('/update', (req,res) => {
-  const userid = req.cookies.userid
-  if(!userid) {
-    return json.dumps({code: 1})
+Router.post("/update", (req, res) => {
+  const userid = req.cookies.userid;
+  if (!userid) {
+    return json.dumps({ code: 1 });
   }
-  const body = req.body
+  const body = req.body;
   User.findByIdAndUpdate(userid, body, (err, doc) => {
-    const data = Object.assign({}, {
-      user: doc.user,
-      type: doc.type
-    }, body)
-    return res.json({code: 0, data})
-  })
-})
+    const data = Object.assign(
+      {},
+      {
+        user: doc.user,
+        type: doc.type
+      },
+      body
+    );
+    return res.json({ code: 0, data });
+  });
+});
 
 module.exports = Router;
