@@ -16,7 +16,7 @@ const models = {
     desc: { type: String },
     title: { type: String },
     company: { type: String },
-    money: { type: String }
+    salary: { type: String }
   },
   chat: {}
 };

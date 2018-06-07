@@ -12,7 +12,6 @@ import NavLinkBar from "../navlink/navlink";
 export default class Dashboard extends Component {
 
   render() {
-    const user = this.props.user;
     const { pathname } = this.props.location;
     const navList = [
       {
@@ -21,7 +20,7 @@ export default class Dashboard extends Component {
         icon: "boss",
         title: "牛人列表",
         component: Boss,
-        hide: user.type == "genius"
+        // hide: user.type == "genius"
       },
       {
         path: "/genius",
@@ -29,7 +28,7 @@ export default class Dashboard extends Component {
         icon: "job",
         title: "Boss列表",
         component: Genius,
-        hide: user.type == "boss"
+        // hide: user.type == "boss"
       },
       {
         path: "/msg",
@@ -39,7 +38,7 @@ export default class Dashboard extends Component {
         component: Msg
       },
       {
-        path: "/me",
+        path: "/user",
         text: "个人中心",
         icon: "user",
         title: "个人中心",
@@ -49,7 +48,7 @@ export default class Dashboard extends Component {
     return (
       <div>
         <NavBar className="fixed-header" mode="dark">
-          {navList.find(val => val.path == pathname).title}
+          {navList.find(val => val.path === pathname).title}
         </NavBar>
         <div style={{ marginTop: 45 }}>
           <Switch>

@@ -15,10 +15,8 @@ export function chatuser(state = initState, action) {
   switch (action.type) {
     case USER_LIST:
       return { ...state, userlist: action.payload };
-      break;
     default:
       return state;
-      break;
   }
 }
 

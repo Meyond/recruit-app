@@ -1,3 +1,8 @@
+/*
+ * Auth: Meyond (332595512@qq.com)
+ * Date: 2018-06-02 14:33:38
+ */
+
 import axios from "axios";
 import { getRedirectPath } from "../util";
 import { Toast } from "antd-mobile";
@@ -6,6 +11,7 @@ import { Toast } from "antd-mobile";
 const AUTH_SUCCESS = "AUTH_SUCCESS";
 const ERROR_MSG = "ERROR_MSG";
 const LOAD_DATA = "LOAD_DATA";
+const LOGOUT = "LOGOUT";
 
 //定义初始状态
 const initState = {
@@ -26,16 +32,14 @@ export function user(state = initState, action) {
         isAuth: true,
         ...action.payload
       };
-      break;
     case LOAD_DATA:
       return { ...state, ...action.payload };
-      break;
     case ERROR_MSG:
       return { ...state, isAuth: false, msg: action.msg };
-      break;
+    case LOGOUT:
+      return { ...initState, redirectTo:'/login' };
     default:
       return state;
-      break;
   }
 }
 
@@ -106,4 +110,8 @@ export function update(data) {
       }
     });
   };
+}
+
+export function logoutSubmit() {
+  return { type: LOGOUT };
 }

@@ -78,7 +78,7 @@ Router.post("/register", function(req, res) {
       }
       const { user, type, _id } = doc;
       res.cookie("userid", _id);
-      return res.json({ user, type, _id });
+      return res.json({code: 0,data:{user, type, _id }});
     });
   });
 });
