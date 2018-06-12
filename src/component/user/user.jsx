@@ -1,8 +1,3 @@
-/*
- * Auth: Meyond (332595512@qq.com)
- * Date: 2018-06-02 23:19:30
- */
-
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Result, List, WhiteSpace, Modal } from "antd-mobile";
@@ -10,19 +5,22 @@ import browserCookies from "browser-cookies";
 import { logoutSubmit } from "../../redux/user.redux";
 import { Redirect } from "react-router-dom";
 
-@connect(state => state.user, {logoutSubmit})
+@connect(
+  state => state.user,
+  { logoutSubmit }
+)
 export default class User extends Component {
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
   }
 
-  logout() {
+  logout = () => {
     Modal.alert("注销", "确认退出登录吗？", [
       {
         text: "取消",
         onPress: () => {
-          console.log("取消")
+          console.log("取消");
         }
       },
       {
@@ -50,7 +48,7 @@ export default class User extends Component {
             <img
               src={require(`../img/${this.props.avatar}.png`)}
               style={headStyle}
-              alt='avatar'
+              alt="avatar"
             />
           }
           title={this.props.user}
@@ -70,6 +68,8 @@ export default class User extends Component {
           <List.Item onClick={this.logout}>退出登录</List.Item>
         </List>
       </div>
-    ) : <Redirect to={this.props.redirectTo}></Redirect>;
+    ) : (
+      <Redirect to={this.props.redirectTo} />
+    );
   }
 }

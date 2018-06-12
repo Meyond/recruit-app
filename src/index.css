@@ -1,3 +1,8 @@
+/*
+ * Auth: Meyond (332595512@qq.com)
+ * Date: 2018-06-02 14:33:38
+ */
+
 body {
   margin: 0;
   padding: 0;
@@ -7,31 +12,37 @@ body {
   color: #f50;
   text-align: center;
 }
-
-.fixed-header.am-navbar{
-	position: fixed;
-	top: 0;
-	width: 100%;
+.fixed-header.am-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
-
-.am-tab-bar{
-	position: fixed;
-	bottom: 0;
-	width: 100%;
+.am-tab-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: auto;
 }
-
-.page-content{
+.page-content {
   padding: 45px 5px;
 }
-
 /* 聊天页css */
-#chat-page .chat-me .am-list-extra{
+#chat-page .chat-me .am-list-extra {
   flex-basis: auto;
 }
-#chat-page .chat-me .am-list-content{
+#chat-page .chat-me .am-list-content {
   padding-right: 15px;
   text-align: right;
 }
-.stick-footer{
+#chat-page .am-grid-icon {
+  display: none;
+}
+#chat-page .an-grid-text {
+  margin-top: 0;
+}
+.stick-footer {
   z-index: 10;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }

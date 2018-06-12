@@ -5,10 +5,9 @@ import { withRouter } from "react-router-dom";
 
 @withRouter
 export default class UserCard extends Component {
-  handleClick(v) {
-    console.log(v);
 
-    this.props.history.push(`/chat/${v.user}`);
+  handleClick(v) {
+    this.props.history.push(`/chat/${v._id}`);
   }
 
   render() {
@@ -19,7 +18,7 @@ export default class UserCard extends Component {
             val.avatar ? (
               <div key={val._id} onClick={() => this.handleClick(val)}>
                 <WhiteSpace />
-                <Card >
+                <Card>
                   <Card.Header
                     title={val.user}
                     thumb={require(`../img/${val.avatar}.png`)}

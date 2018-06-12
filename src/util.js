@@ -14,3 +14,8 @@ export function md5Pwd(pwd) {
   const salt = "imooc_is_good_3957x8yza6!@#IUHjh~";
   return utility.md5(utility.md5(pwd + salt));
 }
+
+//
+export const getChatId = (userId, targetId) =>{
+	return [userId, targetId].sort().join('_')
+}

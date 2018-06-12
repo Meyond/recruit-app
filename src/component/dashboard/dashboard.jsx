@@ -7,11 +7,22 @@ import Genius from "../../component/genius/genius";
 import User from "../../component/user/user";
 import Msg from "../../component/msg/msg";
 import NavLinkBar from "../navlink/navlink";
+import { getMsgList, sendMsg, recvMsg } from "../../redux/chat.redux";
 
-@connect(state => state)
+@connect(state => state,{
+  getMsgList, sendMsg, recvMsg
+})
 export default class Dashboard extends Component {
 
+  componentDidMount() {
+    if(!this.props.chat.chatmsg.length) {
+      this.props.getMsgList();
+      this.props.recvMsg();
+    }
+  }
+
   render() {
+    const user = this.props.user?this.props.user:'boss'
     const { pathname } = this.props.location;
     const navList = [
       {
@@ -20,7 +31,7 @@ export default class Dashboard extends Component {
         icon: "boss",
         title: "牛人列表",
         component: Boss,
-        // hide: user.type == "genius"
+        hide: user.type === "genius"
       },
       {
         path: "/genius",
@@ -28,7 +39,7 @@ export default class Dashboard extends Component {
         icon: "job",
         title: "Boss列表",
         component: Genius,
-        // hide: user.type == "boss"
+        hide: user.type === "boss"
       },
       {
         path: "/msg",

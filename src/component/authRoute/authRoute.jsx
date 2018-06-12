@@ -23,10 +23,10 @@ export default class AuthRoute extends Component {
     const publicList = ["/login", "/register"];
     const pathName = this.props.location.pathname;
 
-    //处理默认路由
-    if (pathName === "/") {
-      this.props.history.push("/login");
-    }
+    // //处理默认路由
+    // if (pathName === "/") {
+    //   this.props.history.push("/login");
+    // }
 
     if (publicList.indexOf(pathName) > -1) {
       // return null;

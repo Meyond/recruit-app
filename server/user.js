@@ -2,11 +2,16 @@ const express = require("express");
 const Router = express.Router();
 const model = require("./model");
 const User = model.getModel("user");
+const Chat = model.getModel('chat')
+
 //过滤数据库返回字段
 const _filter = { pwd: 0, __v: 0 };
 
+// //清空聊天
+// Chat.remove({}, function(err, doc) {});
+
 Router.get("/list", function(req, res) {
-  //清除所有
+  //// 清除所有
   // User.remove({}, function(err, doc) {
   //   console.log('清除所有用户！')
   // })
@@ -78,7 +83,7 @@ Router.post("/register", function(req, res) {
       }
       const { user, type, _id } = doc;
       res.cookie("userid", _id);
-      return res.json({code: 0,data:{user, type, _id }});
+      return res.json({ code: 0, data: { user, type, _id } });
     });
   });
 });
@@ -99,6 +104,23 @@ Router.post("/update", (req, res) => {
       body
     );
     return res.json({ code: 0, data });
+  });
+});
+
+Router.get("/getmsglist", function(req, res) {
+  // 从cookie中获取所有的用户信息
+  const user = req.cookies.userid;
+
+  User.find({}, function(err, doc) {
+    let users = {};
+    doc.forEach(v => {
+      users[v._id] = { name: v.user, avatar: v.avatar };
+    });
+    Chat.find({ '$or': [{ from: user }, { to: user }] }, function(err, doc) {
+      if (!err) {
+        return res.json({ code: 0, msgs: doc, users: users });
+      }
+    });
   });
 });
 
