@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Button } from "antd-mobile";
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {

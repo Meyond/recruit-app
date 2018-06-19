@@ -2,7 +2,7 @@ const express = require("express");
 const Router = express.Router();
 const model = require("./model");
 const User = model.getModel("user");
-const Chat = model.getModel('chat')
+const Chat = model.getModel("chat");
 
 //过滤数据库返回字段
 const _filter = { pwd: 0, __v: 0 };
@@ -116,12 +116,29 @@ Router.get("/getmsglist", function(req, res) {
     doc.forEach(v => {
       users[v._id] = { name: v.user, avatar: v.avatar };
     });
-    Chat.find({ '$or': [{ from: user }, { to: user }] }, function(err, doc) {
+    Chat.find({ $or: [{ from: user }, { to: user }] }, function(err, doc) {
       if (!err) {
         return res.json({ code: 0, msgs: doc, users: users });
       }
     });
   });
+});
+
+Router.post("/readmsg", function(req, res) {
+  const userid = req.cookies.userid;
+  const { from } = req.body;
+  // console.log(userid, from);
+  Chat.update(
+    { from, to: userid },
+    { $set: { read: true } },
+    { multi: true },
+    function(err, doc) {
+      if (!err) {
+        return res.json({ code: 0, num: doc.nModified });
+      }
+      return res.json({ code: 1, msg: "修改失败" });
+    }
+  );
 });
 
 module.exports = Router;
