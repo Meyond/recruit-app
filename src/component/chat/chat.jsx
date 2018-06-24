@@ -6,7 +6,7 @@ import { getChatId } from "../../util";
 
 @connect(
   state => state,
-  { getMsgList, sendMsg, recvMsg,readMsg }
+  { getMsgList, sendMsg, recvMsg, readMsg }
 )
 export default class Chat extends Component {
   constructor(props) {
@@ -19,8 +19,11 @@ export default class Chat extends Component {
       this.props.getMsgList();
       this.props.recvMsg();
     }
-    const to = this.props.match.params.user
-    this.props.readMsg(to)
+  }
+
+  componentWillUnmount() {
+    const to = this.props.match.params.user;
+    this.props.readMsg(to);
   }
 
   fixCarousel() {
@@ -105,7 +108,7 @@ export default class Chat extends Component {
                     }}
                     onClick={() => {
                       this.setState({ showEmoji: !this.state.showEmoji });
-                      this.fixCarousel()
+                      this.fixCarousel();
                     }}
                   >
                     🙂
@@ -123,8 +126,8 @@ export default class Chat extends Component {
               isCarousel={true}
               onClick={el => {
                 this.setState({
-                  text:this.state.text + el.text
-                })
+                  text: this.state.text + el.text
+                });
               }}
             />
           ) : null}
